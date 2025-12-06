@@ -1,7 +1,8 @@
 # Medidor de Tensão e Corrente DC com Arduino + LCD 16×2  
 ### Explicação completa com fórmulas, divisor de tensão e resistor shunt
 
-<img width="833" height="759" alt="image" src="https://github.com/user-attachments/assets/146fe0b2-b4c4-4d9e-a3fc-f075476be0b8" />
+<img width="497" height="495" alt="image" src="https://github.com/user-attachments/assets/e07b22fd-5145-4d52-8cf1-3fade7227ebb" />
+
 
 
 *Tensão até ≈ 50 V DC | Corrente até ≈ 50 mA (fácil de aumentar)*
