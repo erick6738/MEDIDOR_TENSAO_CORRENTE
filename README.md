@@ -3,13 +3,13 @@
 
 <img width="497" height="495" alt="image" src="https://github.com/user-attachments/assets/e07b22fd-5145-4d52-8cf1-3fade7227ebb" />
 
+link do projeto: https://www.tinkercad.com/things/8kooctIkJbb-medidor-de-tensao-e-corrente?sharecode=Fsu3sAD4ETMSc0Zdemllv7jotIWM4De4zNIXeMOrM7g
+
 
 
 *Tensão até ≈ 50 V DC | Corrente até ≈ 50 mA (fácil de aumentar)*
 
-Projeto 100 % funcional no Tinkercad e no hardware real. Perfeito para laboratório, bancada, fontes, baterias, painéis solares pequenos, etc.
 
----
 
 ### Esquemático rápido (mesmo que você já tenha montado)
 R1 = 14 kΩ
